@@ -1,3 +1,9 @@
+/*hide "no file chosen in input type 'file'*/
+input[type=file]{
+    width:90px;
+    color:transparent;
+}
+
 /*Nav Bar*/
 ul {
     list-style-type: none;
@@ -36,6 +42,11 @@ body{
     margin: 0;
 }
 
+#colorLabel {
+    color: white;
+    font-size: 18px;
+}
+
 #colorFont {
     color: white;
     font-size: 18px;
@@ -54,3 +65,4 @@ body{
     position: relative;
     height: 100vh;
 }
+
