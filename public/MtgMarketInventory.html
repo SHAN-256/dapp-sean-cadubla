@@ -2,10 +2,14 @@
 <html>
 
 <head>
+  <meta charset="UTF-8">
   <title>Magic the Ethering</title>
   <link rel="shortcut icon" href="images/mtgFavicon.ico" />
   <link rel="stylesheet" href="marketstyle.css"></link>
   <script src="marketscript.js"></script>
+  <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript" src="web3.min.js"></script>
+  <script language="javascript" type="text/javascript" src="mtgMarketABI.js"></script>
 </head>
 
 <body>
@@ -27,18 +31,105 @@
       <center><p id="colorFont">Inventory</p></center>
     </p>
 
+    <div id="txNotif" style=>test</div>
+
     <center><div id="colorFont">Card Name: <input type="text" id="cardName"></div></center>&nbsp;
     <center><div id="colorFont">Card CMC: <input type="text" id="cardCMC"></div></center>&nbsp;
     <center><div id="colorFont">Card Type: <input type="text" id="cardType"></div></center>&nbsp;
     <center><div id="colorFont">Card Colors: <input type="text" id="cardColors"></div></center>&nbsp;
-    <center><div id="colorFont">Card Price: <input type="text" id="cardPrice"></div></center>&nbsp;
+    <center><div id="colorFont">Card Price: <input type="text" id="cardPrice" value="1000000000000000000"></div></center>&nbsp;
     <center><input id = "uploadPhoto" type="file" name="pic" accept="image/*" onchange="pressed()"><label id="colorLabel">No File Chosen</label></center>&nbsp;
-    <center><input type="button" id="buttonSell" value="Add to Inventory"/></center>&nbsp;
+    <center><input type="button" id="buttonAddInvent" value="Add to Inventory" onclick="addButtonClicked()"/></center>&nbsp;
+
+    <div id="txHere" style=>test</div>
 
 </div>
+<!-- <script>
+var mtgMarket;
+var userAccount;
+var txTest = document.getElementById('txHere');
 
-</header>
+function startApp() {
+    mtgMarketAddress = "0x7b018c47a37c5991eeb8ed358978a7839a95c962";
+    mtgMarket = new web3js.eth.Contract(mtgMarketABI, mtgMarketAddress);
+    
+    //txTest.innerHTML = mtgMarketAddress;
+    var accountInterval = setInterval(function() {
+  // Check if account has changed
+  if (web3.eth.accounts[0] !== userAccount) {
+    userAccount = web3.eth.accounts[0];
+    // Call some function to update the UI with the new account
+    
+    getCardsByOwner(userAccount)
+    .then(displayCards);
+  }
+}, 100);
+}
 
+function displayCards(ids) {
+  $("#txHere").empty();
+    for (id of ids){
+        getCardDetails(id)
+        .then(function(mtgCard) {
+            $("#txHere").append(`<div class="mtgCard">
+              <ul>
+                <li>Name: ${mtgCard.name}</li>
+                <li>CMC: ${mtgCard.cmc}</li>
+                <li>CardType: ${mtgCard.cardType}</li>
+                <li>Colors: ${mtgCard.colors}</li>
+                <li>Price: ${mtgCard.price}</li>
+                <li>Image: ${mtgCard.image}</li>
+              </ul>
+            </div>`);
+        });
+    }
+}
+
+function getCardDetails(id) {
+    return mtgMarket.methods.cards(id).call()
+}
+
+function cardToOwner(id) {
+    return mtgMarket.methods.cardToOwner(id).call()
+}
+
+function getCardsByOwner(owner) {
+    return mtgMarket.methods.getCardsByOwner(owner).call()
+}
+
+window.addEventListener('load', function() {
+var txWarning = document.getElementById('txHere');
+  // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+  if (typeof web3 !== 'undefined') {
+    // Use Mist/MetaMask's provider
+    txHere.innerHTML = "yesMetamask";
+    web3js = new Web3(web3.currentProvider);
+  } else {
+    // Handle the case where the user doesn't have web3. Probably 
+    // show them a message telling them to install Metamask in 
+    // order to use our app.
+    txHere.innerHTML = "noMetamask";
+  }
+
+  // Now you can start your app & access web3js freely:
+  startApp()
+
+})
+
+window.pressed = function(){
+    var a = document.getElementById('uploadPhoto');
+    var label = document.getElementById('colorLabel')
+    if(a.value == "")
+    {
+        label.innerHTML = "Choose file";
+    }
+    else
+    {
+        var theSplit = a.value.split('\\');
+        label.innerHTML = theSplit[theSplit.length-1];
+    }
+};
+</script> -->
 
 </body>
 
