@@ -9,23 +9,21 @@ function startApp() {
     var account;
     // // web3.eth.getAccounts(account);
     // alert(account);
-    web3.eth.getAccounts((err, res) => {                   
-      
-      account = res[0];
-      console.log(account);
-    });
-    //alert(account);
 
     var accountInterval = setInterval(function() {
-  // Check if account has changed
-    if (account !== userAccount) {
-    userAccount = account;
-    // Call some function to update the UI with the new account
-    
-    getCardsByOwner(userAccount)
-    .then(displayCards);
-  }
-});
+       web3.eth.getAccounts((err, res) => {                   
+      
+        account = res[0];
+        //console.log(account);
+      });
+        // Check if account has changed
+        if (account !== userAccount) {
+        userAccount = account;
+        // Call some function to update the UI with the new account
+        getCardsByOwner(userAccount)
+        .then(displayCards);
+      }
+    }, 100);
 }
 
 function displayCards(ids) {
@@ -33,14 +31,17 @@ function displayCards(ids) {
     for (id of ids){
         getCardDetails(id)
         .then(function(mtgCard) {
+          //alert(mtgCard.price);
             $("#txHere").append(`<div class="mtgCard">
               <ul>
+                <li>Id: : FixMe</li>
                 <li>Name: ${mtgCard.name}</li>
                 <li>CMC: ${mtgCard.cmc}</li>
                 <li>CardType: ${mtgCard.cardType}</li>
                 <li>Colors: ${mtgCard.colors}</li>
                 <li>Price: ${mtgCard.price}</li>
                 <li>Image: ${mtgCard.image}</li>
+                <input type="button" id="buttonBuyCard" value="Purchase Card"/>
               </ul>
             </div>`);
         });
@@ -75,6 +76,22 @@ function addCardToInventory(name, cmc, cardType, colors, price, image) {
   .on("error", function(error) {
     // Do something to alert the user their transaction has failed
     $("#txNotif").text(error);
+  });
+}
+
+function purchaseCard(id) {
+  $("#txNotif").text("Purchasing Card...");
+  var cardPrice;
+  getCardDetails(id)
+  .then(function(mtgCard) {
+    return mtgMarket.methods.purchaseCard(id)
+    .send({ from: userAccount, value: mtgCard.price })
+    .on("receipt", function(receipt) {
+      $("#txNotif").text("Gadzooks! Successfully bought a card!");
+    })
+    .on("error", function(error) {
+      $("#txNotif").text(error);
+    });
   });
 }
 
