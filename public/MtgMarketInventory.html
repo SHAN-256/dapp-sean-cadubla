@@ -6,43 +6,58 @@
   <title>Magic the Ethering</title>
   <link rel="shortcut icon" href="images/mtgFavicon.ico" />
   <link rel="stylesheet" href="marketstyle.css"></link>
-  <script src="marketscript.js"></script>
   <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script language="javascript" type="text/javascript" src="web3.min.js"></script>
   <script language="javascript" type="text/javascript" src="mtgMarketABI.js"></script>
+  <script src="marketscript.js"></script>
 </head>
 
 <body>
 
 <div id="centerMainDiv">
-
-    <p>
+  
      <center><img src="images/MTGlogo.png" style="width:20%"></center>
-    </p>
 
     <ul>
-    <li><a class="active" href="MtgMarket.html">Home</a></li>
-    <li><a href="MtgMarketSell.html">Market</a></li>
-    <li><a href="MtgMarketInventory.html">Inventory</a></li>
-    <li><a href="MtgMarketAbout.html">About</a></li>
+      <li><a href="#" id="linkHome">Home</a></li>
+      <li><a href="#" id="linkMarket">Market</a></li>
+      <li><a href="#" id="linkInventory">Inventory</a></li>
+      <li><a href="#" id="linkAbout">About</a></li>
     </ul>
 
-    <p>
-      <center><p id="colorLabel">Inventory</p></center>
-    </p>
+    <main>
+      <section id="viewHome">
+        <center><p id="colorLabel">Home</p></center>
+        <div id="txHereHome" class="white">homeStuff</div>
+      </section>
 
-    <div id="txNotif" class="white">Notications</div>
+      <section id="viewMarket">
+        <center><p id="colorLabel">Market</p></center>
+        <div id="txHereMarket" class="white">marketStuff</div>
+      </section>
 
-    <center><div class="white">Card Name: <input type="text" id="cardName"></div></center>&nbsp;
-    <center><div class="white">Card CMC: <input type="text" id="cardCMC"></div></center>&nbsp;
-    <center><div class="white">Card Type: <input type="text" id="cardType"></div></center>&nbsp;
-    <center><div class="white">Card Colors: <input type="text" id="cardColors"></div></center>&nbsp;
-    <center><div class="white">Card Price: <input type="text" id="cardPrice" value="1000000000000000000"></div></center>&nbsp;
-    <center><input id = "uploadPhoto" type="file" name="pic" accept="image/*" onchange="pressed()"><label id="colorLabel">No File Chosen</label></center>&nbsp;
-    <center><input type="button" id="buttonAddInvent" value="Add to Inventory" onclick="addButtonClicked()"/></center>&nbsp;
+      <section id="viewInventory">
 
-    <div id="txHere" class="white">test</div>
+        <center><p id="colorLabel">Inventory</p></center>
 
+        <div id="txNotif" class="white">Notications</div>
+
+        <center><div class="white">Card Name: <input type="text" id="cardName"></div></center>&nbsp;
+        <center><div class="white">Card CMC: <input type="text" id="cardCMC"></div></center>&nbsp;
+        <center><div class="white">Card Type: <input type="text" id="cardType"></div></center>&nbsp;
+        <center><div class="white">Card Colors: <input type="text" id="cardColors"></div></center>&nbsp;
+        <center><div class="white">Card Price: <input type="text" id="cardPrice" value="1000000000000000000"></div></center>&nbsp;
+        <center><input id = "uploadPhoto" type="file" name="pic" accept="image/*" onchange="pressed()"><label id="colorLabel">No File Chosen</label></center>&nbsp;
+        <center><input type="button" id="buttonAddInvent" value="Add to Inventory"/></center>&nbsp;
+
+        <div id="txHere" class="white">inventoryStuff</div>
+      </section>
+
+      <section id="viewAbout">
+        <center><p id="colorLabel">About</p></center>
+        <div id="txHereAbout" class="white">AboutStuff</div>
+      </section>
+    </main>
 </div>
 
 </body>

@@ -34,6 +34,60 @@ var mtgMarketABI = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"name": "_price",
+				"type": "uint256"
+			}
+		],
+		"name": "changeCardPrice",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "cardId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "cardName",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "cardPrice",
+				"type": "uint256"
+			}
+		],
+		"name": "NewCardInventory",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "purchaseCard",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [
 			{
@@ -43,6 +97,10 @@ var mtgMarketABI = [
 		],
 		"name": "cards",
 		"outputs": [
+			{
+				"name": "id",
+				"type": "uint256"
+			},
 			{
 				"name": "name",
 				"type": "string"
@@ -73,35 +131,36 @@ var mtgMarketABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
-				"name": "_id",
-				"type": "uint256"
-			},
-			{
-				"name": "_price",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "changeCardPrice",
-		"outputs": [],
+		"name": "cardToOwner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "getAllCards",
+		"outputs": [
 			{
-				"name": "_id",
-				"type": "uint256"
+				"name": "",
+				"type": "uint256[]"
 			}
 		],
-		"name": "purchaseCard",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -122,46 +181,5 @@ var mtgMarketABI = [
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "cardToOwner",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "cardId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "cardName",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "cardPrice",
-				"type": "uint256"
-			}
-		],
-		"name": "NewCardInventory",
-		"type": "event"
 	}
 ]
