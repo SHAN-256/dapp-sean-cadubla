@@ -102,13 +102,14 @@ $(document).ready(function () {
                     <img src="images/vraska.jpg" alt="Cinque Terre" width="600" height="400">
                   </a>
                   <div class="desc">
-                  ID: ${mtgCard.id} <br/>
+                  <div class="idd" name="s">${mtgCard.id}</div>
                   Name:${mtgCard.name}<br/>
-                  Price: ${priceEth} eth<br/>
-                  <input type="button" id="btnPurchase" value="Purchase"/>
+                  Price: ${priceEth} eth
                   </div>
                 </div>
               </div>`);
+               //$("#txHereMarket").append("<p class='test'>click me</p>");
+               //<input type="button" class="btn" id="btnPurchase" value="Purchase"/>
           });
       }
   }
@@ -124,10 +125,14 @@ $(document).ready(function () {
       alert(name + cmc + cardtype + colors + price + image);
 
       addCardToInventory(name,cmc,cardtype,colors,price,image);
+      clearAddInventory();
   });
 
-  $('#btnPurchase').click(function () {
-
+  $("#txHereMarket").delegate("div.desc", "click", function(){
+    //alert($(this).children('div.desc').text());
+    //var nameValue = $(this).find('#lower').attr('name');
+    console.log($(this).text());
+    alert($(this).text());
   });
 
   function addCardToInventory(name, cmc, cardType, colors, price, image) {
@@ -146,6 +151,14 @@ $(document).ready(function () {
       // Do something to alert the user their transaction has failed
       $("#txNotif").text(error);
     });
+  }
+
+  function clearAddInventory() {
+    $("#cardName").val("");
+    $("#cardCMC").val("");
+    $("#cardType").val("");
+    $("#cardColors").val("");
+    $("#cardPrice").val("");
   }
 
   function purchaseCard(id) {

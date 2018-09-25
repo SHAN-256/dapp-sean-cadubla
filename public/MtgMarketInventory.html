@@ -5,29 +5,36 @@
   <meta charset="UTF-8">
   <title>Magic the Ethering</title>
   <link rel="shortcut icon" href="images/mtgFavicon.ico" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="marketstyle.css"></link>
   <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script language="javascript" type="text/javascript" src="web3.min.js"></script>
   <script language="javascript" type="text/javascript" src="mtgMarketABI.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="marketscript.js"></script>
 </head>
 
 <body>
-
 <div id="centerMainDiv">
   
      <center><img src="images/MTGlogo.png" style="width:20%"></center>
 
-    <ul>
-      <li><a href="#" id="linkHome">Home</a></li>
-      <li><a href="#" id="linkMarket">Market</a></li>
-      <li><a href="#" id="linkInventory">Inventory</a></li>
-      <li><a href="#" id="linkAbout">About</a></li>
-    </ul>
+     <nav class="navbar navbar-inverse">
+      <div class="navbar-header">
+      <a class="navbar-brand" href="#" id="linkHome">Magic: The Ethering</a>
+    </div>
+      <ul class="nav navbar-nav">
+        <li><a href="#" id="linkMarket">Market</a></li>
+        <li><a href="#" id="linkInventory">Inventory</a></li>
+        <li><a href="#" id="linkAbout">About</a></li>
+      </ul>
+    </nav>
+    
 
     <main>
       <section id="viewHome">
-        <center><p id="colorLabel">Home</p></center>
+        <center><h3><p id="colorLabel">Home</p></h3></center>
         <div id="txHereHome" class="white">homeStuff</div>
       </section>
 
@@ -39,18 +46,43 @@
       <section id="viewInventory">
 
         <center><p id="colorLabel">Inventory</p></center>
-
         <div id="txNotif" class="white">Notications</div>
 
-        <center><div class="white">Card Name: <input type="text" id="cardName"></div></center>&nbsp;
-        <center><div class="white">Card CMC: <input type="text" id="cardCMC"></div></center>&nbsp;
-        <center><div class="white">Card Type: <input type="text" id="cardType"></div></center>&nbsp;
-        <center><div class="white">Card Colors: <input type="text" id="cardColors"></div></center>&nbsp;
-        <center><div class="white">Card Price: <input type="text" id="cardPrice" value="1000000000000000000"></div></center>&nbsp;
-        <center><input id = "uploadPhoto" type="file" name="pic" accept="image/*" onchange="pressed()"><label id="colorLabel">No File Chosen</label></center>&nbsp;
-        <center><input type="button" id="buttonAddInvent" value="Add to Inventory"/></center>&nbsp;
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCardModal">Add a Card!</button>
+
+        <div class="modal fade" id="addCardModal" role="dialog">
+          <div class="modal-dialog">
+          
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Card</h4>
+              </div>
+              <div class="modal-body">
+                <center><div>Card Name: <input type="text" class="form-control" id="cardName"></div></center>&nbsp;
+                <center><div>Card CMC: <input type="text" class="form-control" id="cardCMC"></div></center>&nbsp;
+                <center><div>Card Type: <input type="text" class="form-control" id="cardType"></div></center>&nbsp;
+                <center><div>Card Colors: <input type="text" class="form-control" id="cardColors"></div></center>&nbsp;
+                <center><div>Card Price: <input type="text" class="form-control" id="cardPrice" value="1000000000000000000"></div></center>&nbsp;
+                <center><input id = "uploadPhoto" type="file" name="pic" accept="image/*" onchange="pressed()"><label>No File Chosen</label></center>&nbsp;
+              </div>
+              <div class="modal-footer">
+                <input type="button" id="buttonAddInvent" class="btn btn-success" value="Add to Inventory"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        
+
+        
 
         <div id="txHere" class="white">inventoryStuff</div>
+
+        
       </section>
 
       <section id="viewAbout">
@@ -59,7 +91,6 @@
       </section>
     </main>
 </div>
-
 </body>
 
 </html>
