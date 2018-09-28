@@ -41,21 +41,22 @@ body{
     margin: 0;
 }
 
+/*White text in a div*/
 div.white {
     color: white;
     font-size: 18px;
 }
 
+/*White text to every element named colorLabel*/
 #colorLabel {
     color: white;
     font-size: 18px;
 }
 
+html,body { height:100%; }
+
 /*center main div*/
 #centerMainDiv {
-    background-color: black;
-    background: rgb(0, 0, 0); /* Fallback for older browsers without RGBA-support */
-    background: rgba(0, 0, 0, 0.3);
     margin-left: 200px;
     margin-right:200px;
     height: 100%;
@@ -66,7 +67,19 @@ div.white {
     height: 100vh;
 }
 
-html,body { height:100%; }
+/*The content of the main div, making it scrollable*/
+#mainDivContent {
+    height: 100vh;
+    background: rgb(0, 0, 0); /* Fallback for older browsers without RGBA-support */
+    background: rgba(0, 0, 0, 0.3);
+    overflow-y: scroll;
+}
+
+/* adds margins around the add card button in the inventory screen*/
+#addCardButton {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 /*For image boxes*/
 div.gallery {

@@ -5,21 +5,33 @@
   <meta charset="UTF-8">
   <title>Magic the Ethering</title>
   <link rel="shortcut icon" href="images/mtgFavicon.ico" />
+  <!-- Bootstrap-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- Our CSS file-->
   <link rel="stylesheet" href="marketstyle.css"></link>
+  <!-- JQuery-->
   <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Web3 for interacting with our smart contract-->
   <script language="javascript" type="text/javascript" src="web3.min.js"></script>
+  <!-- Our Smart Contract ABI-->
   <script language="javascript" type="text/javascript" src="mtgMarketABI.js"></script>
+  <!-- Jquery-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Bootstrap-->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- IPFS, decentralized storage for our card images-->
+  <script src="https://unpkg.com/ipfs/dist/index.js"></script>
+  <!-- Bootstrap Notify plugin-->
+  <script language="javascript" type="text/javascript" src="notify.min.js"></script>
+  <!-- Our JS file-->
   <script src="marketscript.js"></script>
 </head>
 
 <body>
+  <!-- Main Div, the center of our site-->
 <div id="centerMainDiv">
-  
      <center><img src="images/MTGlogo.png" style="width:20%"></center>
-
+     <!-- bootstrap navigation bar with all the possile views-->
      <nav class="navbar navbar-inverse">
       <div class="navbar-header">
       <a class="navbar-brand" href="#" id="linkHome">Magic: The Ethering</a>
@@ -27,28 +39,45 @@
       <ul class="nav navbar-nav">
         <li><a href="#" id="linkMarket">Market</a></li>
         <li><a href="#" id="linkInventory">Inventory</a></li>
-        <li><a href="#" id="linkAbout">About</a></li>
       </ul>
     </nav>
-    
-
+    <!-- The content of our site. Home has a brief intro of what MTG is, Market is all the cards in our smart contract, while Inventory is all the cards the metamask address owns-->
+<div id="mainDivContent">
     <main>
+      <!-- The view of the home page starts here.......-->
       <section id="viewHome">
-        <center><h3><p id="colorLabel">Home</p></h3></center>
-        <div id="txHereHome" class="white">homeStuff</div>
+        <p style="font-size:60px; text-align:center; font-family:monospace; color:white; style:bold;">Why is Magic a thing?</p>
+        <center>
+          <img src="https://ipfs.io/ipfs/QmZeJsoYqdr4XfmVAjtQ25x8B3zXL6ZsfcwaF1PWtSo81T">  
+          <img src="https://ipfs.io/ipfs/QmeP57BxvHfESs7tUWtmspuGsGA6982obnshqx8d49dxJo">  
+          <img src="https://ipfs.io/ipfs/QmeWW7R5kPLtGQBzcF3JCd7X6pZRnruJUGhgBwTzhmYXBz"> 
+        </center><br/><br/>
+        <p style="font-family:verdana; color:white;">
+              The game originated in the early 1990s in the mind of Richard Garfield, at the time a graduate student working towards a PhD in combinatorial mathematics at the University of Pennsylvania. 
+          A life-long tabletop gamer, he had approached a publisher to pitch an idea for a game about programming robots, 
+          only to be told that the company needed something more portable and cheaper to produce.
+          <br><br>
+          Magic was Garfields response, and it involved one major innovation that set it apart from any game previously released.
+          
+          Where other card games were sold as a single packaged product, Magic cards would come in randomised packs, a model similar to collectible baseball cards. Particularly powerful cards would be rarer than others, making collecting and trading them as much a part of the experience as actually playing matches. Players would assemble their own decks, with a near-limitless ability to personalise their game and develop their own tactics.
+        <br><br>
+        The formula proved to be a lucrative hit for the game's publisher, Seattle-based Wizards of the Coast. From its release in 1993, Magic grew by word of mouth. Players obsessed over the process of building decks, endlessly hunting for the most effective card combinations and devising a huge range of winning strategies.
+        </p>
       </section>
+      <!-- And ends here-->
 
+      <!-- The view of the Market page starts here......-->
       <section id="viewMarket">
-        <center><p id="colorLabel">Market</p></center>
-        <div id="txNotifMarket" class="white">Notications</div>
-        <div id="txHereMarket" class="white">marketStuff</div>
+        <!--This is where all the cards go!-->
+        <div id="txHereMarket" class="white"></div>
       </section>
+      <!-- And ends here-->
 
+      <!-- The view of the Inventory page starts here......-->
       <section id="viewInventory">
-
-        <center><p id="colorLabel">Inventory <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addCardModal">Add a Card!</button></p> </center>
-        <div id="txNotif" class="white">Notications</div>
-
+        <!--The Add inventory button-->
+        <center><button id="addCardButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCardModal">Add a Card!</button></center>
+        <!--The modal for adding cards to your inventory-->
         <div class="modal fade" id="addCardModal" role="dialog">
           <div class="modal-dialog">       
             <!-- Modal content-->
@@ -62,8 +91,8 @@
                 <center><div class="input-group"><span class="input-group-addon">Card CMC</span><input type="text" class="form-control" id="cardCMC"></div></center>&nbsp;
                 <center><div class="input-group"><span class="input-group-addon">Card Type</span><input type="text" class="form-control" id="cardType"></div></center>&nbsp;
                 <center><div class="input-group"><span class="input-group-addon">Card Colors</span><input type="text" class="form-control" id="cardColors"></div></center>&nbsp;
-                <center><div class="input-group"><span class="input-group-addon">Card Price</span><input type="text" class="form-control" id="cardPrice" value="1000000000000000000"></div></center>&nbsp;
-                <center><input id = "uploadPhoto" type="file" name="pic" accept="image/*" onchange="pressed()"><label>No File Chosen</label></center>&nbsp;
+                <center><div class="input-group"><span class="input-group-addon">Card Price (Wei)</span><input type="text" class="form-control" id="cardPrice" value="1000000000000000000"></div></center>&nbsp;
+                <center><input id = "uploadPhoto" type="file" name="pic" accept="image/*"><label id="imageLabel">No File Chosen</label></center>&nbsp;
               </div>
               <div class="modal-footer">
                 <input type="button" id="buttonAddInvent" class="btn btn-success" value="Add to Inventory"/>
@@ -73,6 +102,7 @@
           </div>
         </div>
 
+        <!--The modal for changing a Card's price-->
         <div class="modal fade" id="changeCardPriceModal" role="dialog">
           <div class="modal-dialog">       
             <!-- Modal content-->
@@ -83,7 +113,7 @@
               </div>
               <div class="modal-body">
                 <center><div class="input-group"><span class="input-group-addon">Card ID</span><input type="text" class="form-control" id="cardChangePriceId" disabled></div></center>&nbsp;
-                <center><div class="input-group"><span class="input-group-addon">Card Price</span><input type="text" class="form-control" id="cardChangePrice"></div></center>&nbsp;
+                <center><div class="input-group"><span class="input-group-addon">Card Price (Wei)</span><input type="text" class="form-control" id="cardChangePrice"></div></center>&nbsp;
               </div>
               <div class="modal-footer">
                 <input type="button" id="buttonChangePrice" class="btn btn-success" value="Change Price"/>
@@ -92,17 +122,12 @@
             </div>
           </div>
         </div>
-
-        <div id="txHere" class="white">inventoryStuff</div>
-        
-        
+        <!--This is where all the cards go!-->
+        <div id="txHere" class="white">inventoryStuff</div>        
       </section>
-
-      <section id="viewAbout">
-        <center><p id="colorLabel">About</p></center>
-        <div id="txHereAbout" class="white">AboutStuff</div>
-      </section>
+      <!-- And ends here-->
     </main>
+  </div>
 </div>
 </body>
 
