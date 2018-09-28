@@ -40,19 +40,17 @@
 
       <section id="viewMarket">
         <center><p id="colorLabel">Market</p></center>
+        <div id="txNotifMarket" class="white">Notications</div>
         <div id="txHereMarket" class="white">marketStuff</div>
       </section>
 
       <section id="viewInventory">
 
-        <center><p id="colorLabel">Inventory</p></center>
+        <center><p id="colorLabel">Inventory <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addCardModal">Add a Card!</button></p> </center>
         <div id="txNotif" class="white">Notications</div>
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCardModal">Add a Card!</button>
-
         <div class="modal fade" id="addCardModal" role="dialog">
-          <div class="modal-dialog">
-          
+          <div class="modal-dialog">       
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
@@ -60,11 +58,11 @@
                 <h4 class="modal-title">Add Card</h4>
               </div>
               <div class="modal-body">
-                <center><div>Card Name: <input type="text" class="form-control" id="cardName"></div></center>&nbsp;
-                <center><div>Card CMC: <input type="text" class="form-control" id="cardCMC"></div></center>&nbsp;
-                <center><div>Card Type: <input type="text" class="form-control" id="cardType"></div></center>&nbsp;
-                <center><div>Card Colors: <input type="text" class="form-control" id="cardColors"></div></center>&nbsp;
-                <center><div>Card Price: <input type="text" class="form-control" id="cardPrice" value="1000000000000000000"></div></center>&nbsp;
+                <center><div class="input-group"><span class="input-group-addon">Card Name</span><input type="text" class="form-control" id="cardName"></div></center>&nbsp;
+                <center><div class="input-group"><span class="input-group-addon">Card CMC</span><input type="text" class="form-control" id="cardCMC"></div></center>&nbsp;
+                <center><div class="input-group"><span class="input-group-addon">Card Type</span><input type="text" class="form-control" id="cardType"></div></center>&nbsp;
+                <center><div class="input-group"><span class="input-group-addon">Card Colors</span><input type="text" class="form-control" id="cardColors"></div></center>&nbsp;
+                <center><div class="input-group"><span class="input-group-addon">Card Price</span><input type="text" class="form-control" id="cardPrice" value="1000000000000000000"></div></center>&nbsp;
                 <center><input id = "uploadPhoto" type="file" name="pic" accept="image/*" onchange="pressed()"><label>No File Chosen</label></center>&nbsp;
               </div>
               <div class="modal-footer">
@@ -72,16 +70,31 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
-            
           </div>
         </div>
 
-        
-
-        
+        <div class="modal fade" id="changeCardPriceModal" role="dialog">
+          <div class="modal-dialog">       
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change Card Price</h4>
+              </div>
+              <div class="modal-body">
+                <center><div class="input-group"><span class="input-group-addon">Card ID</span><input type="text" class="form-control" id="cardChangePriceId" disabled></div></center>&nbsp;
+                <center><div class="input-group"><span class="input-group-addon">Card Price</span><input type="text" class="form-control" id="cardChangePrice"></div></center>&nbsp;
+              </div>
+              <div class="modal-footer">
+                <input type="button" id="buttonChangePrice" class="btn btn-success" value="Change Price"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div id="txHere" class="white">inventoryStuff</div>
-
+        
         
       </section>
 

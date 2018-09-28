@@ -34,9 +34,11 @@ contract mtgInventory {
     }
     
     function purchaseCard(uint _id) public payable {
+        require(cardToOwner[_id]!= msg.sender);
         require(msg.value == cards[_id].price);
         address previousOwner = cardToOwner[_id];
         cardToOwner[_id] = msg.sender;
+        previousOwner.transfer(msg.value / 2);
         ownerCardCount[previousOwner] = ownerCardCount[previousOwner].sub(1);
         ownerCardCount[msg.sender] = ownerCardCount[cardToOwner[_id]].add(1);
     }

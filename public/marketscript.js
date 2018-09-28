@@ -35,7 +35,7 @@ $(document).ready(function () {
   }
 
   function startApp() {
-      mtgMarketAddress = "0x325d773ded9529efcd755030089e3fefc998f821";
+      mtgMarketAddress = "0xe8d147d4241c1672313394f6b57d874cd2005280";
       mtgMarket = new web3js.eth.Contract(mtgMarketABI, mtgMarketAddress);
 
       var account;
@@ -79,9 +79,9 @@ $(document).ready(function () {
                     <img src="images/vraska.jpg" alt="Cinque Terre" width="600" height="400">
                   </a>
                   <div class="desc">
-                  ID: ${mtgCard.id}<br/>
+                  ID: <span class="idd">${mtgCard.id}</span><br/>
                   Name:${mtgCard.name}<br/>
-                  Price: ${priceEth} eth<br/>
+                  Price: <span class="priceTx">${priceEth}</span> eth
                   </div>
                 </div>
               </div>`);
@@ -102,14 +102,12 @@ $(document).ready(function () {
                     <img src="images/vraska.jpg" alt="Cinque Terre" width="600" height="400">
                   </a>
                   <div class="desc">
-                  <div class="idd" name="s">${mtgCard.id}</div>
+                  ID: <span class="idd">${mtgCard.id}</span><br/>
                   Name:${mtgCard.name}<br/>
                   Price: ${priceEth} eth
                   </div>
                 </div>
               </div>`);
-               //$("#txHereMarket").append("<p class='test'>click me</p>");
-               //<input type="button" class="btn" id="btnPurchase" value="Purchase"/>
           });
       }
   }
@@ -122,7 +120,7 @@ $(document).ready(function () {
       var price= $("#cardPrice").val();
       var image= "No Image Yet";
 
-      alert(name + cmc + cardtype + colors + price + image);
+      //alert(name + cmc + cardtype + colors + price + image);
 
       addCardToInventory(name,cmc,cardtype,colors,price,image);
       clearAddInventory();
@@ -131,8 +129,28 @@ $(document).ready(function () {
   $("#txHereMarket").delegate("div.desc", "click", function(){
     //alert($(this).children('div.desc').text());
     //var nameValue = $(this).find('#lower').attr('name');
-    console.log($(this).text());
-    alert($(this).text());
+    var purchaseID = $(this).children('span.idd').text();
+    //alert(purchaseID);
+    purchaseCard(purchaseID);
+  });
+
+  $("#txHere").delegate("div.desc", "click", function(){
+    var originalPrice = $(this).children('span.priceTx').text();
+    var priceToWei = originalPrice * 1000000000000000000;
+    var changeCardPriceID = $(this).children('span.idd').text();
+    // alert(priceToWei);
+    // alert(changeCardPrice);
+    $('#cardChangePriceId').val(changeCardPriceID);
+    $('#cardChangePrice').val(priceToWei);
+    $('#changeCardPriceModal').modal('toggle');
+  });
+
+  $('#buttonChangePrice').click(function () {
+    var changePrice = $("#cardChangePrice").val();
+    var changeCardPriceID = $("#cardChangePriceId").val();
+
+    changeCardPrice(changeCardPriceID, changePrice);
+    $('#changeCardPriceModal').modal('hide');
   });
 
   function addCardToInventory(name, cmc, cardType, colors, price, image) {
@@ -146,6 +164,23 @@ $(document).ready(function () {
       $("#txNotif").text("Successfully cast " + name + "!");
       // Transaction was accepted into the blockchain, let's redraw the UI
       getCardsByOwner(userAccount).then(displayCards);
+      getAllCards().then(displayCardsMarket);
+    })
+    .on("error", function(error) {
+      // Do something to alert the user their transaction has failed
+      $("#txNotif").text(error);
+    });
+  }
+
+  function changeCardPrice(id, price) {
+    $("#txNotif").text("Changing card price...");
+    return mtgMarket.methods.changeCardPrice(id, price)
+    .send({ from: userAccount })
+    .on("receipt", function(receipt) {
+      $("#txNotif").text("Changed card price!");
+      // Transaction was accepted into the blockchain, let's redraw the UI
+      getCardsByOwner(userAccount).then(displayCards);
+      getAllCards().then(displayCardsMarket);
     })
     .on("error", function(error) {
       // Do something to alert the user their transaction has failed
@@ -158,12 +193,11 @@ $(document).ready(function () {
     $("#cardCMC").val("");
     $("#cardType").val("");
     $("#cardColors").val("");
-    $("#cardPrice").val("");
+    $("#cardPrice").val("1000000000000000000");
   }
 
   function purchaseCard(id) {
-    document.getElementById("myOutput").innerHTML;
-    $("#txNotif").text("Purchasing Card...");
+    $("#txNotifMarket").text("Purchasing Card...");
     var cardPrice;
     getCardDetails(id)
     .then(function(mtgCard) {
@@ -171,6 +205,7 @@ $(document).ready(function () {
       .send({ from: userAccount, value: mtgCard.price })
       .on("receipt", function(receipt) {
         $("#txNotif").text("Gadzooks! Successfully bought a card!");
+        getCardsByOwner(userAccount).then(displayCards);
       })
       .on("error", function(error) {
         $("#txNotif").text(error);
